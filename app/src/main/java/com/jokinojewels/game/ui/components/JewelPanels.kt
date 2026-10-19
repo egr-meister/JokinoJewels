@@ -271,10 +271,10 @@ fun DiamondPips(
 ) {
     val count = total.coerceIn(0, 24)
     val lit = filled.coerceIn(0, count)
-    val width = pipSize * count + gap * (count - 1).coerceAtLeast(0)
+    val rowWidth = pipSize * count + gap * (count - 1).coerceAtLeast(0)
     Canvas(
         modifier
-            .width(width)
+            .width(rowWidth)
             .height(pipSize)
             .semantics { contentDescription = description }
     ) {

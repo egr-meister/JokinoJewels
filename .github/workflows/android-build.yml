@@ -34,13 +34,19 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
+      # The ubuntu runner ships a preinstalled Android SDK with current cmdline-tools.
+      # (android-actions/setup-android is not used: its default package list asks for the
+      # removed legacy "tools" package and sdkmanager fails.)
       - name: Install SDK Platform 36 and Build Tools 36.0.0
         run: |
-          yes | sdkmanager --licenses > /dev/null || true
-          sdkmanager --install "platforms;android-36" "build-tools;${BUILD_TOOLS_VERSION}" "platform-tools"
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          SDKMANAGER="$(ls -d "$SDK"/cmdline-tools/latest/bin/sdkmanager "$SDK"/cmdline-tools/*/bin/sdkmanager 2>/dev/null | head -n 1)"
+          if [ -z "$SDKMANAGER" ]; then echo "::error::sdkmanager not found under $SDK"; exit 1; fi
+          echo "ANDROID_HOME=$SDK" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$SDK" >> "$GITHUB_ENV"
+          yes | "$SDKMANAGER" --sdk_root="$SDK" --licenses > /dev/null || true
+          "$SDKMANAGER" --sdk_root="$SDK" --install "platforms;android-36" "build-tools;${BUILD_TOOLS_VERSION}" "platform-tools"
+          ls "$SDK/platforms" "$SDK/build-tools"
 
       # Gradle is provisioned at a fixed version, so a committed gradle-wrapper.jar is not required.
       - name: Set up Gradle ${{ env.GRADLE_VERSION }}
