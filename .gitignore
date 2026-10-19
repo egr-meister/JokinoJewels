@@ -1,0 +1,35 @@
+# Gradle / build
+.gradle/
+build/
+**/build/
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.ap_
+*.dex
+output-metadata.json
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+.navigation/
+.kotlin/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Signing material — NEVER commit
+*.jks
+*.keystore
+*.p12
+*.pfx
+keystore.properties
+signing.env
+*.b64
+
+# Python helper cache
+tools/__pycache__/

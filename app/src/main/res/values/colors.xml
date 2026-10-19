@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- "Sapphire Jester Theatre" palette (mirrors ui/theme/Color.kt) -->
+    <color name="midnight">#FF020B2B</color>
+    <color name="navy">#FF0A1D5C</color>
+    <color name="sapphire_deep">#FF1636A3</color>
+    <color name="jester_gold">#FFF6C344</color>
+    <color name="ruby">#FFD9263D</color>
+    <color name="cream">#FFFFF6DE</color>
+</resources>
